@@ -12,7 +12,7 @@ django-browser-reload==1.21.0
 django-ckeditor==6.7.3
 django-colorfield==0.14.0
 django-js-asset==3.1.2
-django-tailwind==4.4.2
+django-tailwind==4.2.0
 honcho==2.0.0
 idna==3.11
 Jinja2==3.1.6
