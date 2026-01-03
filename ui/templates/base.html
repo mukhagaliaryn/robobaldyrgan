@@ -1,0 +1,62 @@
+{% load static tailwind_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <title>{% block title %}{% endblock title %} - Robobaldyrgan</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% tailwind_css %}
+    <link rel="stylesheet" href="{% static 'css/input.css' %}">
+    <link rel="shortcut icon" href="{% static 'images/icon.png' %}" type="image/x-icon">
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" /> <!-- Swiper JS -->
+</head>
+
+<body class="font-sans text-foreground leading-normal tracking-normal">
+    {% if messages %}
+        {% for message in messages %}
+            <div
+				class="message-item fixed z-50 bottom-0 left-0 w-full bg-foreground flex justify-center items-center gap-2 px-4 py-2 text-white transition-all duration-500" 
+				role="alert"
+			>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="{{ message.tags }}" viewBox="0 0 24 24" fill="currentColor">
+                    <path fill-rule="evenodd"
+                        d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 0 1 .67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 1 1-.671-1.34l.041-.022ZM12 9a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
+                        clip-rule="evenodd" />
+                </svg>
+
+                <span class="font-medium">
+                    {{ message }}
+                </span>
+            </div>
+
+			<script>
+				setTimeout(() => {
+					const messages = document.querySelectorAll('.message-item');
+					messages.forEach((msg) => {
+						msg.classList.add('translate-y-10', 'opacity-0');
+						setTimeout(() => msg.remove(), 1000);
+					});
+				}, 5000);
+			</script>
+        {% endfor %}
+    {% endif %}
+
+
+    <main>
+        {% block base %}
+        {% endblock base %}
+    </main>
+
+    <!-- CDNs -->
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>  <!-- Swiper JS -->
+
+
+    {% block script %}
+    {% endblock script %}
+</body>
+</html>

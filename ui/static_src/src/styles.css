@@ -1,0 +1,31 @@
+@import "tailwindcss";
+@import "flowbite/src/themes/default";
+@plugin "flowbite/plugin";
+@source "../node_modules/flowbite";
+
+
+
+@theme {
+  --color-foreground: var(--color-slate-900);
+  --color-subtle: var(--color-slate-600);
+  --color-muted: var(--color-slate-500);
+
+  /* system colors */
+  --color-primary: var(--color-blue-700);
+  --color-primary-hover: var(--color-blue-800);
+  --color-primary-ring: var(--color-blue-400);
+
+  --color-secondary: var(--color-slate-50);
+  --color-secondary-hover: var(--color-slate-100);
+  --color-secondary-ring: var(--color-slate-200);
+
+
+  /* border colors */
+  --color-border-primary: var(--color-slate-200);
+
+  --font-sans: "Inter", 'ui-sans-serif', 'system-ui', '-apple-system', 'system-ui', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-poppins: "Poppins", sans-serif;
+}
+
+
+@source "../../../**/*.{html,py,js}";

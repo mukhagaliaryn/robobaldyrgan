@@ -1,0 +1,71 @@
+{% extends '../layout.html' %}
+
+
+{% block title %}Жүйеге кіру{% endblock title %}
+
+
+{% block auth_layout %}
+<div class="grid gap-4">
+    <div class="text-center">
+        <h1 class="text-xl md:text-2xl font-black">Қайта оралуыңмен!</h1>
+        <span class="text-sm text-muted">Тіркелген электронды пошта және пароль арқылу жүйеге кіру</span>
+    </div>
+
+    <form method="post" class="grid gap-4">
+        {% csrf_token %}
+        <div class="grid gap-4">
+            <div class="relative">
+                <label for="{{ form.username.id_for_label }}" class="block mb-2 text-sm font-bold">
+                    Пайдаланушының аты
+                </label>
+                <input 
+                    type="text"
+                    id="{{ form.username.id_for_label }}"
+                    name="identifier"
+                    class="block w-full py-3 px-5 bg-secondary border border-border-primary text-foreground text-sm rounded-lg focus:ring-primary-ring focus:border-primary"
+                    placeholder="@user.name" 
+                    required 
+                />
+                {% if form.username.errors %}
+                    {% for error in form.username.errors %}
+                        <p class="text-sm text-red-600">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <div class="relative">
+                <label for="{{ form.password.id_for_label }}" class="block mb-2 text-sm font-bold">
+                    Пароль
+                </label>
+                <input 
+                    type="password" 
+                    id="{{ form.password.id_for_label }}"
+                    name="password"
+                    class="block w-full py-3 px-5 bg-secondary border border-border-primary text-foreground text-sm rounded-lg focus:ring-primary-ring focus:border-primary"
+                    required 
+                />
+                {% if form.password.errors %}
+                    {% for error in form.password.errors %}
+                        <p class="text-sm text-red-600">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="grid gap-2">
+            <button 
+                type="submit" 
+                class="cursor-pointer focus:outline-none transition-all text-sm text-white bg-primary hover:bg-primary-hover focus:ring-3 focus:ring-primary-ring font-medium rounded-lg px-5 py-3"
+            >
+                Жүйеге кіру
+            </button>
+        </div>
+    </form>
+    <a 
+        href="{% url 'main:register' %}"
+        class="w-full flex justify-center text-sm focus:outline-none transition-all bg-white border border-border-primary hover:bg-secondary-hover focus:ring-3 focus:ring-secondary-ring font-medium rounded-lg px-5 py-3"
+    >
+        Регистрация
+    </a>
+</div>
+{% endblock auth_layout %}

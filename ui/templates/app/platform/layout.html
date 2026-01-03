@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block base %}
+<nav class="fixed top-0 z-50 w-full bg-neutral-primary-soft border-b border-default">
+    <div class="px-3 py-3 lg:px-5 lg:pl-3">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center justify-start rtl:justify-end">
+                <button data-drawer-target="top-bar-sidebar" data-drawer-toggle="top-bar-sidebar"
+                    aria-controls="top-bar-sidebar" type="button"
+                    class="sm:hidden text-heading bg-transparent box-border border border-transparent hover:bg-neutral-secondary-medium focus:ring-4 focus:ring-neutral-tertiary font-medium leading-5 rounded-base text-sm p-2 focus:outline-none">
+                    <span class="sr-only">Open sidebar</span>
+                    <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
+                            d="M5 7h14M5 12h14M5 17h10" />
+                    </svg>
+                </button>
+                <a href="{% url 'platform:dashboard' %}" class="flex items-center space-x-3 rtl:space-x-reverse font-poppins border border-transparent focus:border focus:border-dashed focus:border-primary">
+                    <img src="{% static 'images/icon.png' %}" class="h-8" alt="Flowbite Logo" />
+                    <h1 class="
+                        relative text-2xl font-black whitespace-nowrap
+                        after:content-['baldyrgan'] after:absolute after:start-0 after:-bottom-2 after:text-xs after:text-subtle after:font-normal
+                        "
+                    >
+                        ROBO
+                    </h1>
+                </a>
+            </div>
+            <div class="flex items-center">
+                <div class="flex items-center ms-3">
+                    <div>
+                        <button type="button"
+                            class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                            aria-expanded="false" data-dropdown-toggle="dropdown-user">
+                            <span class="sr-only">Open user menu</span>
+                                <img 
+                                    class="w-8 h-8 rounded-full"
+                                    src="{% if user.avatar %}{{ user.avatar.url }}{% else %}{% static 'images/user-avatar.png' %}{% endif %}" 
+                                    alt="user photo"
+                                >
+                        </button>
+                    </div>
+                    <div class="z-50 hidden bg-neutral-primary-medium border border-default-medium rounded-base shadow-lg w-52"
+                        id="dropdown-user">
+                        <div class="px-4 py-3 border-b border-default-medium" role="none">
+                            <p class="text-sm font-medium text-heading" role="none">
+                                {{ user.full_name }}
+                            </p>
+                            <p class="text-sm text-body truncate" role="none">
+                                {{ user.email }}
+                            </p>
+                        </div>
+                        <ul class="p-2 text-sm text-body font-medium" role="none">
+                            <li>
+                                <a href="{% url 'platform:account' %}"
+                                    class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded"
+                                    role="menuitem">Аккаунт</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'platform:settings' %}"
+                                    class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded"
+                                    role="menuitem">Баптаулар</a>
+                            </li>
+                            <li>
+                                <form action="{% url 'main:logout' %}" method="post">
+                                    {% csrf_token %}
+                                    <button 
+                                        type="submit" 
+                                        class="w-full inline-flex items-center p-2 hover:bg-neutral-tertiary-medium cursor-pointer hover:text-heading rounded"
+                                    >
+                                        Шығу
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<aside 
+    id="top-bar-sidebar"
+    class="fixed top-0 left-0 z-40 w-64 h-full transition-transform -translate-x-full sm:translate-x-0"
+    aria-label="Sidebar"
+>
+    <div class="h-full px-3 py-4 overflow-y-auto bg-neutral-primary-soft border-e border-default">
+        <a href="https://flowbite.com/" class="flex items-center ps-2.5 mb-5">
+            <img src="https://flowbite.com/docs/images/logo.svg" class="h-6 me-3" alt="Flowbite Logo" />
+            <span class="self-center text-lg text-heading font-semibold whitespace-nowrap">Flowbite</span>
+        </a>
+        <ul class="space-y-2 font-medium">
+            <li>
+                <a 
+                    href="{% url 'platform:dashboard' %}"
+                    class="
+                        flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group 
+                        {% if request.path == '/platform/' %}bg-neutral-tertiary text-fg-brand{% endif %}
+                    "
+                >
+                    <svg class="w-5 h-5 transition duration-75 group-hover:text-fg-brand" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 6.025A7.5 7.5 0 1 0 17.975 14H10V6.025Z" />
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13.5 3c-.169 0-.334.014-.5.025V11h7.975c.011-.166.025-.331.025-.5A7.5 7.5 0 0 0 13.5 3Z" />
+                    </svg>
+                    <span class="ms-3">Басты бет</span>
+                </a>
+            </li>
+            <li>
+                <a 
+                    href="{% url 'platform:courses' %}"
+                    class="
+                        flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group
+                        {% if request.path == '/platform/courses/' %}bg-neutral-tertiary text-fg-brand{% endif %}    
+                    ">
+                    <svg class="w-5 h-5 transition duration-75 group-hover:text-fg-brand" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                        height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9.143 4H4.857A.857.857 0 0 0 4 4.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 10 9.143V4.857A.857.857 0 0 0 9.143 4Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 20 9.143V4.857A.857.857 0 0 0 19.143 4Zm-10 10H4.857a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286A.857.857 0 0 0 9.143 14Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286a.857.857 0 0 0-.857-.857Z" />
+                    </svg>
+                    <span class="ms-3">Курстар</span>
+                </a>
+            </li>
+            <li>
+                <a 
+                    href="{% url 'platform:books' %}"
+                    class="
+                        flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group
+                        {% if request.path == '/platform/books/' %}bg-neutral-tertiary text-fg-brand{% endif %}       
+                    "
+                >
+                    <svg class="w-5 h-5 transition duration-75 group-hover:text-fg-brand" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                        height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M5 19V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v13H7a2 2 0 0 0-2 2Zm0 0a2 2 0 0 0 2 2h12M9 3v14m7 0v4" />
+                    </svg>
+                    <span class="ms-3">Кітаптар</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</aside>
+
+<div class="p-4 sm:ml-64 mt-14">
+    <div class="p-4 border border-default border-dashed rounded-base">
+        {% block platform_layout %}
+        {% endblock platform_layout %}
+    </div>
+</div>
+{% endblock base %}
