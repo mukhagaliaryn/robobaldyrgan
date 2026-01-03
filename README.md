@@ -1,6 +1,6 @@
 <p align="center">
     <img 
-        src="ui/static/images/logo.svg" 
+        src="ui/static/images/icon.png" 
         alt="Biomedia Logo" width="140" 
     />
 </p>
